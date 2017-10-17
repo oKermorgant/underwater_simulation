@@ -5,6 +5,9 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   image_transport
   interactive_markers
+  osg_interactive_markers
+  osg_markers
+  osg_utils
   kdl_parser
   nav_msgs
   pcl_ros
@@ -21,9 +24,6 @@ find_package(catkin REQUIRED COMPONENTS
 
 find_package(Boost REQUIRED thread program_options system filesystem)
 find_package(OpenSceneGraph COMPONENTS osgSim osgUtil osgDB osgFX osgGA osgTerrain osgViewer osgText osgWidget osg osgParticle osgManipulator)
-find_package(osg_markers REQUIRED)
-find_package(osg_interactive_markers REQUIRED)
-find_package(osg_utils REQUIRED)
 find_package(PkgConfig)
 find_package(uwsim_bullet REQUIRED)
 find_package(uwsim_osgbullet REQUIRED)
@@ -57,10 +57,7 @@ catkin_package(
     LIBXML++
     OPENSCENEGRAPH
     OSGBULLET
-    OSGINTERACTIVEMARKERS
-    OSGMARKERS
     OSGOCEAN
-    OSGUTILS
     OSGWORKS
 )
 
@@ -72,7 +69,7 @@ CONFIGURE_FILE(${PROJECT_SOURCE_DIR}/include/uwsim/SimulatorConfig.h.cmake
   ${PROJECT_SOURCE_DIR}/include/uwsim/SimulatorConfig.h
 )
 
-INCLUDE_DIRECTORIES(include ${BULLET_INCLUDE_DIRS} ${OSGWORKS_INCLUDE_DIR} ${OSGBULLET_INCLUDE_DIR} ${OSGOCEAN_INCLUDE_DIRS} ${LIBXML++_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} ${OSGUTILS_INCLUDE_DIRS} ${OSGMARKERS_INCLUDE_DIRS} ${OSGINTERACTIVEMARKERS_INCLUDE_DIRS})
+INCLUDE_DIRECTORIES(include ${BULLET_INCLUDE_DIRS} ${OSGWORKS_INCLUDE_DIR} ${OSGBULLET_INCLUDE_DIR} ${OSGOCEAN_INCLUDE_DIRS} ${LIBXML++_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
 
 link_directories(${orocos_kdl_LIBRARY_DIRS})
 
@@ -120,7 +117,7 @@ target_link_libraries(uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${OSGOCEAN_LI
 add_dependencies(uwsim underwater_sensor_msgs_gencpp)
 
 add_executable(uwsim_binary  src/main.cpp)
-target_link_libraries(uwsim_binary uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${OSGOCEAN_LIBRARIES} ${OSGWORKS_LIBRARIES} ${OSGBULLET_LIBRARIES} ${BULLET_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${LIBXML++_LIBRARIES} ${OSGUTILS_LIBRARIES} ${OSGINTERACTIVEMARKERS_LIBRARIES} ${OSGMARKERS_LIBRARIES} -lGLU )
+target_link_libraries(uwsim_binary uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${OSGOCEAN_LIBRARIES} ${OSGWORKS_LIBRARIES} ${OSGBULLET_LIBRARIES} ${BULLET_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${LIBXML++_LIBRARIES} -lGLU )
 
 add_executable(makeVehicleSurvey interface_examples/makeVehicleSurvey.cpp)
 target_link_libraries(makeVehicleSurvey uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES})

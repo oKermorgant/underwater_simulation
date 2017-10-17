@@ -17,7 +17,6 @@
 #include <uwsim/SceneBuilder.h>
 
 #include <underwater_sensor_msgs/SpawnMarker.h>
-
 #include <osg_interactive_markers/interactive_marker_display.h>
 #include <osg_utils/osg_utils.h>
 #include <osg_utils/frame_manager.h>
