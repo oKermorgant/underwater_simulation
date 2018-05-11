@@ -13,13 +13,6 @@
 
 #include <uwsim/ROSSceneBuilder.h>
 
-#include <osg_markers/marker_base.h>
-
-#include <osg_markers/shape_marker.h>
-#include <osg_markers/arrow_marker.h>
-#include <osg_markers/text_view_facing_marker.h>
-#include <osg_markers/triangle_list_marker.h>
-#include <osg_markers/mesh_resource_marker.h>
 
 ROSSceneBuilder::ROSSceneBuilder(boost::shared_ptr<osg::ArgumentParser> args)
 :SceneBuilder(args)
@@ -42,8 +35,6 @@ bool ROSSceneBuilder::loadScene(ConfigFile config)
   //Create a marker frame manager, and interactive marker client
   frame_manager = osg_utils::FrameManager::instance();
   frame_manager->setFixedFrame("/world");
-  marker_cli= (boost::shared_ptr<osg_interactive_markers::InteractiveMarkerDisplay>)
-	 new osg_interactive_markers::InteractiveMarkerDisplay("osg_im","/uwsim_marker/update", markers, *(frame_manager->getTFClient()));
 
   //Start time elapsed vars for interactive marker client
   last_wall_time = ros::WallTime::now();
@@ -56,14 +47,15 @@ void ROSSceneBuilder::updateIM()
 {
     ros::WallTime current_wall_time=ros::WallTime::now();
     ros::Time current_ros_time=ros::Time::now();
-    marker_cli->update((current_wall_time-last_wall_time).toSec(), (current_ros_time-last_ros_time).toSec());
     last_wall_time=current_wall_time;
     last_ros_time=current_ros_time;
 }
 
 bool  ROSSceneBuilder::markerSRVCallback(underwater_sensor_msgs::SpawnMarker::Request  &req, underwater_sensor_msgs::SpawnMarker::Response &res)
 {
-  boost::shared_ptr<osg_markers::MarkerBase> markerSearch;
+    return true;
+}
+/*  boost::shared_ptr<osg_markers::MarkerBase> markerSearch;
   //Search for marker in markerList
   for (MarkerList::iterator iter = markerList.begin(); iter != markerList.end(); ++iter)
   {
@@ -176,4 +168,4 @@ bool  ROSSceneBuilder::markerSRVCallback(underwater_sensor_msgs::SpawnMarker::Re
   res.status_message="object " + boost::lexical_cast<std::string>(req.marker.id) + " " + req.marker.ns + " was successfully ADDED.";
 
   return true;
-}
+}*/

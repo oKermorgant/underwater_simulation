@@ -4,10 +4,6 @@ project(uwsim)
 find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   image_transport
-  interactive_markers
-  osg_interactive_markers
-  osg_markers
-  osg_utils
   kdl_parser
   nav_msgs
   pcl_ros
@@ -39,7 +35,6 @@ catkin_package(
   CATKIN_DEPENDS
     geometry_msgs
     image_transport
-    interactive_markers
     kdl_parser
     nav_msgs
     pcl_ros
@@ -103,7 +98,7 @@ src/MultibeamSensor.cpp
 src/VirtualSLSProjector.cpp
 src/BulletPhysics.cpp
 src/PhysicsBuilder.cpp
-src/ROSSceneBuilder.cpp
+#src/ROSSceneBuilder.cpp
 )
 
 add_library(uwsim_plugins_simdev 
@@ -119,64 +114,64 @@ add_dependencies(uwsim underwater_sensor_msgs_gencpp)
 add_executable(uwsim_binary  src/main.cpp)
 target_link_libraries(uwsim_binary uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${OSGOCEAN_LIBRARIES} ${OSGWORKS_LIBRARIES} ${OSGBULLET_LIBRARIES} ${BULLET_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${LIBXML++_LIBRARIES} -lGLU )
 
-add_executable(makeVehicleSurvey interface_examples/makeVehicleSurvey.cpp)
-target_link_libraries(makeVehicleSurvey uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+#add_executable(makeVehicleSurvey interface_examples/makeVehicleSurvey.cpp)
+#target_link_libraries(makeVehicleSurvey uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
-add_executable(setJointPosition interface_examples/setJointPosition.cpp)
-target_link_libraries(setJointPosition uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+#add_executable(setJointPosition interface_examples/setJointPosition.cpp)
+#target_link_libraries(setJointPosition uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
-add_executable(setJointVelocity interface_examples/setJointVelocity.cpp)
-target_link_libraries(setJointVelocity uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+#add_executable(setJointVelocity interface_examples/setJointVelocity.cpp)
+#target_link_libraries(setJointVelocity uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
-add_executable(setVehiclePosition interface_examples/setVehiclePosition.cpp)
-target_link_libraries(setVehiclePosition uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+#add_executable(setVehiclePosition interface_examples/setVehiclePosition.cpp)
+#target_link_libraries(setVehiclePosition uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
-add_executable(setVehiclePose interface_examples/setVehiclePose.cpp)
-target_link_libraries(setVehiclePose uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+#add_executable(setVehiclePose interface_examples/setVehiclePose.cpp)
+#target_link_libraries(setVehiclePose uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
-add_executable(setVehicleVelocity interface_examples/setVehicleVelocity.cpp)
-target_link_libraries(setVehicleVelocity uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+#add_executable(setVehicleVelocity interface_examples/setVehicleVelocity.cpp)
+#target_link_libraries(setVehicleVelocity uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
-add_executable(setVehicleTwist interface_examples/setVehicleTwist.cpp)
-target_link_libraries(setVehicleTwist uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+#add_executable(setVehicleTwist interface_examples/setVehicleTwist.cpp)
+#target_link_libraries(setVehicleTwist uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
-add_executable(setVehicleDisturbances interface_examples/setVehicleDisturbances.cpp)
-target_link_libraries(setVehicleDisturbances uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+#add_executable(setVehicleDisturbances interface_examples/setVehicleDisturbances.cpp)
+#target_link_libraries(setVehicleDisturbances uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
-add_executable(gotoAbsolutePose interface_examples/gotoAbsolutePose.cpp)
-target_link_libraries(gotoAbsolutePose uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+#add_executable(gotoAbsolutePose interface_examples/gotoAbsolutePose.cpp)
+#target_link_libraries(gotoAbsolutePose uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
-add_executable(gotoRelativePose interface_examples/gotoRelativePose.cpp)
-target_link_libraries(gotoRelativePose uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+#add_executable(gotoRelativePose interface_examples/gotoRelativePose.cpp)
+#target_link_libraries(gotoRelativePose uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
-add_executable(setVehicleActuators interface_examples/setVehicleActuators.cpp)
-target_link_libraries(setVehicleActuators uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+#add_executable(setVehicleActuators interface_examples/setVehicleActuators.cpp)
+#target_link_libraries(setVehicleActuators uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
-add_executable(followMarker interface_examples/followMarker.cpp)
-target_link_libraries(followMarker ${catkin_LIBRARIES} ${Boost_LIBRARIES} )
+#add_executable(followMarker interface_examples/followMarker.cpp)
+#target_link_libraries(followMarker ${catkin_LIBRARIES} ${Boost_LIBRARIES} )
 
-add_executable(spawnMarker interface_examples/spawnMarker.cpp)
-target_link_libraries(spawnMarker ${catkin_LIBRARIES} ${Boost_LIBRARIES} )
-add_dependencies(spawnMarker underwater_sensor_msgs_gencpp)
+#add_executable(spawnMarker interface_examples/spawnMarker.cpp)
+#target_link_libraries(spawnMarker ${catkin_LIBRARIES} ${Boost_LIBRARIES} )
+#add_dependencies(spawnMarker underwater_sensor_msgs_gencpp)
 
 install(
   TARGETS
     uwsim
     uwsim_binary
     uwsim_plugins_simdev
-    makeVehicleSurvey
-    setJointPosition
-    setJointVelocity
-    setVehiclePosition
-    setVehiclePose
-    setVehicleVelocity
-    setVehicleTwist
-    setVehicleDisturbances
-    gotoAbsolutePose
-    gotoRelativePose
-    setVehicleActuators
-    followMarker
-    spawnMarker
+#    makeVehicleSurvey
+#    setJointPosition
+#    setJointVelocity
+#    setVehiclePosition
+#    setVehiclePose
+#    setVehicleVelocity
+#    setVehicleTwist
+#    setVehicleDisturbances
+#    gotoAbsolutePose
+#    gotoRelativePose
+#    setVehicleActuators
+#    followMarker
+#    spawnMarker
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}

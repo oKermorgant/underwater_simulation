@@ -17,7 +17,7 @@
 #include <stdlib.h>
 
 #include <uwsim/ConfigXMLParser.h>
-#include <uwsim/ROSSceneBuilder.h>
+#include <uwsim/SceneBuilder.h>
 #include <uwsim/ViewBuilder.h>
 #include <uwsim/PhysicsBuilder.h>
 #include "osgbCollision/GLDebugDrawer.h"
@@ -112,12 +112,8 @@ int main(int argc, char *argv[])
   ros::init(argc, argv, "UWSim");
   ros::start();
 
-  ROSSceneBuilder builder(arguments);
+  SceneBuilder builder(arguments);
   builder.loadScene(config);
-
-  PhysicsBuilder physicsBuilder;
-  if (config.enablePhysics)
-    physicsBuilder.loadPhysics(&builder, config);
 
   int drawPhysics = 0;
   if (!arguments->read("--debugPhysics", osg::ArgumentParser::Parameter(drawPhysics))
@@ -128,8 +124,8 @@ int main(int argc, char *argv[])
   {
     debugDrawer.reset(new osgbCollision::GLDebugDrawer());
     debugDrawer->setDebugMode(drawPhysics);
-    physicsBuilder.physics->dynamicsWorld->setDebugDrawer(debugDrawer.get());
-    builder.getRoot()->addChild(debugDrawer->getSceneGraph());
+   // physicsBuilder.physics->dynamicsWorld->setDebugDrawer(debugDrawer.get());
+   // builder.getRoot()->addChild(debugDrawer->getSceneGraph());
   }
 
   ViewBuilder view(config, &builder, arguments);
@@ -148,7 +144,7 @@ int main(int argc, char *argv[])
     ROSInterface::setROSTime(ros::Time::now());
     ros::spinOnce();
 
-    if (config.enablePhysics)
+  /*  if (config.enablePhysics)
     {
       const double currSimTime = view.getViewer()->getFrameStamp()->getSimulationTime();
       double elapsed(currSimTime - prevSimTime);
@@ -165,11 +161,11 @@ int main(int argc, char *argv[])
         physicsBuilder.physics->dynamicsWorld->debugDrawWorld();
         debugDrawer->EndDraw();
       }
-    }
+    }*/
 
     view.getViewer()->frame();
 
-    builder.updateIM();
+   // builder.updateIM();
 
   }
   if (ros::ok())
