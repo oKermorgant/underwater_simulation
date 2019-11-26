@@ -40,7 +40,7 @@
 /* #undef BUILD_BULLET_PHYSICS */
 
 //UWSim root folder
-#define UWSIM_ROOT_PATH "/home/olivier/code/workspaces/external/install/share/uwsim"
+#define UWSIM_ROOT_PATH "/home/olivier/code/ros_installed/install/share/uwsim"
 
 //Operating system
 /* #undef WIN32 */

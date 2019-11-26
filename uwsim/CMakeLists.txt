@@ -101,12 +101,12 @@ src/PhysicsBuilder.cpp
 #src/ROSSceneBuilder.cpp
 )
 
-add_library(uwsim_plugins_simdev 
-src/SimDev_Echo.cpp
-src/ForceSensor.cpp
-src/DredgeTool.cpp
-)
-target_link_libraries(uwsim_plugins_simdev ${catkin_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES})
+# add_library(uwsim_plugins_simdev 
+# src/SimDev_Echo.cpp
+# src/ForceSensor.cpp
+# src/DredgeTool.cpp
+# )
+# target_link_libraries(uwsim_plugins_simdev ${catkin_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES})
 
 target_link_libraries(uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${OSGOCEAN_LIBRARIES} ${OSGWORKS_LIBRARIES} ${OSGBULLET_LIBRARIES} ${BULLET_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${LIBXML++_LIBRARIES} -lGLU)
 add_dependencies(uwsim underwater_sensor_msgs_gencpp)
@@ -158,7 +158,7 @@ install(
   TARGETS
     uwsim
     uwsim_binary
-    uwsim_plugins_simdev
+#    uwsim_plugins_simdev
 #    makeVehicleSurvey
 #    setJointPosition
 #    setJointVelocity
@@ -210,4 +210,6 @@ install(DIRECTORY src/
                WORLD_READ WORLD_EXECUTE
 )
 
-install(FILES package.xml simdev_plugins.xml DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+install(FILES package.xml 
+#simdev_plugins.xml 
+DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
