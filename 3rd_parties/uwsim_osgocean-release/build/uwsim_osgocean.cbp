@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="uwsim_osgocean"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\CMakeModules\;CMake Files\src\;CMake Files\src\osgOcean\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/strip">
+				<Option working_dir="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 install/strip"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/local">
+				<Option working_dir="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 install/local"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install">
+				<Option working_dir="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 install"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="list_install_components">
+				<Option working_dir="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 list_install_components"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="osgOcean">
+				<Option output="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/lib/libosgOcean.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/src/osgOcean"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_FFTW3F"/>
+					<Add option="-DOSGOCEAN_LIBRARY"/>
+					<Add directory="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/src/osgOcean/Makefile&quot;  VERBOSE=1 osgOcean"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/src/osgOcean/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/src/osgOcean/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/src/osgOcean/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="osgOcean/fast">
+				<Option output="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/lib/libosgOcean.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/src/osgOcean"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_FFTW3F"/>
+					<Add option="-DOSGOCEAN_LIBRARY"/>
+					<Add directory="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/src/osgOcean/Makefile&quot;  VERBOSE=1 osgOcean/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/src/osgOcean/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/src/osgOcean/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/build/src/osgOcean/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/include/osgOcean/Cylinder">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/include/osgOcean/DistortionSurface">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/include/osgOcean/Export">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/include/osgOcean/FFTOceanSurface">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/include/osgOcean/FFTOceanSurfaceVBO">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/include/osgOcean/FFTOceanTechnique">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/include/osgOcean/FFTSimulation">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/include/osgOcean/GodRayBlendSurface">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/include/osgOcean/GodRays">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/include/osgOcean/MipmapGeometry">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/include/osgOcean/MipmapGeometryVBO">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/include/osgOcean/OceanScene">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/include/osgOcean/OceanTechnique">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/include/osgOcean/OceanTile">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/include/osgOcean/RandUtils">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/include/osgOcean/ScreenAlignedQuad">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/include/osgOcean/ShaderManager">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/include/osgOcean/SiltEffect">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/include/osgOcean/Version">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/include/osgOcean/WaterTrochoids">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_dof_combiner.frag">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_dof_combiner.vert">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_downsample.frag">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_downsample.vert">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_downsample_glare.frag">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_gaussian.vert">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_gaussian1.frag">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_gaussian2.frag">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_glare_composite.frag">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_glare_composite.vert">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_godray_glare.frag">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_godray_glare.vert">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_godray_screen_blend.frag">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_godray_screen_blend.vert">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_godrays.frag">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_godrays.vert">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_heightmap.frag">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_heightmap.vert">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_ocean_scene.frag">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_ocean_scene.vert">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_ocean_scene_lispsm.frag">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_ocean_scene_lispsm.vert">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_ocean_surface.frag">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_ocean_surface.vert">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_ocean_surface_vbo.vert">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_silt_points.frag">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_silt_points.vert">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_silt_quads.frag">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_silt_quads.vert">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_streak.frag">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_streak.vert">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_water_distortion.frag">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/resources/shaders/osgOcean_water_distortion.vert">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/src/osgOcean/Cylinder.cpp">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/src/osgOcean/DistortionSurface.cpp">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/src/osgOcean/FFTOceanSurface.cpp">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/src/osgOcean/FFTOceanSurfaceVBO.cpp">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/src/osgOcean/FFTOceanTechnique.cpp">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/src/osgOcean/FFTSimulation.cpp">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/src/osgOcean/GodRayBlendSurface.cpp">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/src/osgOcean/GodRays.cpp">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/src/osgOcean/MipmapGeometry.cpp">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/src/osgOcean/MipmapGeometryVBO.cpp">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/src/osgOcean/OceanScene.cpp">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/src/osgOcean/OceanTechnique.cpp">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/src/osgOcean/OceanTile.cpp">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/src/osgOcean/ScreenAlignedQuad.cpp">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/src/osgOcean/ShaderManager.cpp">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/src/osgOcean/SiltEffect.cpp">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/src/osgOcean/Version.cpp">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/src/osgOcean/WaterTrochoids.cpp">
+			<Option target="osgOcean"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/osgOceanConfig.cmake.in">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/CMakeModules/CMakePackageConfigHelpers.cmake">
+			<Option virtualFolder="CMake Files\CMakeModules\"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/CMakeModules/Findfftw3f-3.cmake">
+			<Option virtualFolder="CMake Files\CMakeModules\"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/CMakeModules/WriteBasicConfigVersionFile.cmake">
+			<Option virtualFolder="CMake Files\CMakeModules\"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\"/>
+		</Unit>
+		<Unit filename="/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgocean-release/src/osgOcean/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\osgOcean\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

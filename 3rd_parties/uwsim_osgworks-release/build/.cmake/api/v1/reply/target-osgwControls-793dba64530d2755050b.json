@@ -1,0 +1,212 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "lib/libosgwControls.so"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"INSTALL",
+			"include",
+			"add_definitions",
+			"INCLUDE_DIRECTORIES"
+		],
+		"files" : 
+		[
+			"src/osgwControls/CMakeLists.txt",
+			"CMakeModules/ModuleInstall.cmake",
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 18,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 32,
+				"parent" : 0
+			},
+			{
+				"file" : 1,
+				"parent" : 2
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 24,
+				"parent" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 4,
+				"parent" : 0
+			},
+			{
+				"file" : 2
+			},
+			{
+				"command" : 4,
+				"file" : 2,
+				"line" : 126,
+				"parent" : 6
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-fPIC  "
+				}
+			],
+			"defines" : 
+			[
+				{
+					"define" : "BOOST_FOUND"
+				},
+				{
+					"backtrace" : 5,
+					"define" : "OSGWCONTROLS_LIBRARY"
+				},
+				{
+					"define" : "osgwControls_EXPORTS"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 7,
+					"path" : "/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgworks-release/include"
+				}
+			],
+			"language" : "CXX",
+			"sourceIndexes" : 
+			[
+				2
+			]
+		}
+	],
+	"id" : "osgwControls::@815aaec746f5632bb377",
+	"install" : 
+	{
+		"destinations" : 
+		[
+			{
+				"backtrace" : 4,
+				"path" : "lib"
+			},
+			{
+				"backtrace" : 4,
+				"path" : "lib"
+			}
+		],
+		"prefix" : 
+		{
+			"path" : "/usr/local"
+		}
+	},
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "-losgGA",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-losgText",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-losgViewer",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-losgSim",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-losgDB",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-losgUtil",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-losg",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lOpenThreads",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "osgwControls",
+	"nameOnDisk" : "libosgwControls.so",
+	"paths" : 
+	{
+		"build" : "src/osgwControls",
+		"source" : "src/osgwControls"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1
+			]
+		},
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				2
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"path" : "include/osgwControls/SliderControl.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/osgwControls/Export.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/osgwControls/SliderControl.cpp",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "SHARED_LIBRARY"
+}

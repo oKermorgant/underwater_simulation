@@ -1,0 +1,13 @@
+Source: ros-kinetic-uwsim-osgworks
+Section: misc
+Priority: extra
+Maintainer: Mario Prats <marioprats@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), cmake, libboost-all-dev, libgl1-mesa-dev, libglu1-mesa-dev, libopenscenegraph-dev, openscenegraph
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-kinetic-uwsim-osgworks
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libboost-all-dev, libgl1-mesa-dev, libglu1-mesa-dev, libopenscenegraph-dev, openscenegraph, ros-kinetic-catkin
+Description: The OSG Works library adapted to UWSim.
+ See https://code.google.com/p/osgworks

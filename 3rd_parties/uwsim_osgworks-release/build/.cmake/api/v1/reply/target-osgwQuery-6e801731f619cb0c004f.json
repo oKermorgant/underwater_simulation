@@ -1,0 +1,348 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "lib/libosgwQuery.so"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"INSTALL",
+			"include",
+			"target_link_libraries",
+			"add_definitions",
+			"INCLUDE_DIRECTORIES"
+		],
+		"files" : 
+		[
+			"src/osgwQuery/CMakeLists.txt",
+			"CMakeModules/ModuleInstall.cmake",
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 28,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 57,
+				"parent" : 0
+			},
+			{
+				"file" : 1,
+				"parent" : 2
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 24,
+				"parent" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 47,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 4,
+				"parent" : 0
+			},
+			{
+				"file" : 2
+			},
+			{
+				"command" : 5,
+				"file" : 2,
+				"line" : 126,
+				"parent" : 7
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-fPIC  "
+				}
+			],
+			"defines" : 
+			[
+				{
+					"define" : "BOOST_FOUND"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "OSGWQUERY_LIBRARY"
+				},
+				{
+					"define" : "osgwQuery_EXPORTS"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 8,
+					"path" : "/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgworks-release/include"
+				}
+			],
+			"language" : "CXX",
+			"sourceIndexes" : 
+			[
+				7,
+				8,
+				9,
+				10,
+				11,
+				12
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 5,
+			"id" : "osgwTools::@a28c63ed341d180deaaf"
+		}
+	],
+	"id" : "osgwQuery::@1b91af426d0ef6be4666",
+	"install" : 
+	{
+		"destinations" : 
+		[
+			{
+				"backtrace" : 4,
+				"path" : "lib"
+			},
+			{
+				"backtrace" : 4,
+				"path" : "lib"
+			}
+		],
+		"prefix" : 
+		{
+			"path" : "/usr/local"
+		}
+	},
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "-Wl,-rpath,/home/olivier/code/libs/ros/src/underwater_simulation/3rd_parties/uwsim_osgworks-release/build/lib:",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-losgGA",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-losgText",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-losgViewer",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-losgSim",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-losgDB",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-losgUtil",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-losg",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lOpenThreads",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lGL",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lGLU",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../../lib/libosgwTools.so.3.00.00",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-losgGA",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-losgText",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-losgViewer",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-losgSim",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-losgDB",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-losgUtil",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-losg",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lOpenThreads",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lGL",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "osgwQuery",
+	"nameOnDisk" : "libosgwQuery.so",
+	"paths" : 
+	{
+		"build" : "src/osgwQuery",
+		"source" : "src/osgwQuery"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6
+			]
+		},
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				7,
+				8,
+				9,
+				10,
+				11,
+				12
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"path" : "include/osgwQuery/QueryAPI.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/osgwQuery/QueryBenchmarks.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/osgwQuery/QueryComputation.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/osgwQuery/QueryObject.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/osgwQuery/QueryStats.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/osgwQuery/QueryUtils.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/osgwQuery/Export.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/osgwQuery/QueryAPI.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/osgwQuery/QueryBenchmarks.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/osgwQuery/QueryComputation.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/osgwQuery/QueryObject.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/osgwQuery/QueryStats.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/osgwQuery/QueryUtils.cpp",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "SHARED_LIBRARY"
+}
