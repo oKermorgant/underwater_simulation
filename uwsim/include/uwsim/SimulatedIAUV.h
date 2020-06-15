@@ -17,14 +17,9 @@
 #include "URDFRobot.h"
 #include "VirtualCamera.h"
 #include "ConfigXMLParser.h"
-#include "VirtualRangeSensor.h"
 #include "VirtualSLSProjector.h"
-#include "ObjectPicker.h"
-#include "InertialMeasurementUnit.h"
-#include "PressureSensor.h"
 #include "GPSSensor.h"
-#include "DVLSensor.h"
-#include "MultibeamSensor.h"
+
 
 class SceneBuilder;
 
@@ -33,15 +28,9 @@ class SimulatedIAUV
 {
 public:
   std::vector<VirtualCamera> camview;
-  std::vector<VirtualRangeSensor> range_sensors;
   std::vector<VirtualSLSProjector> sls_projectors;
-  std::vector<ObjectPicker> object_pickers;
-  std::vector<InertialMeasurementUnit> imus;
-  std::vector<PressureSensor> pressure_sensors;
   std::vector<GPSSensor> gps_sensors;
-  std::vector<DVLSensor> dvl_sensors;
-  std::vector<MultibeamSensor> multibeam_sensors;
-  boost::shared_ptr<SimulatedDevices> devices;
+  //std::shared_ptr<SimulatedDevices> devices;
 
   typedef enum
   {
@@ -49,7 +38,7 @@ public:
   } arm_t;
 
   std::string name; ///< Vehicle name
-  boost::shared_ptr<URDFRobot> urdf; ///< URDF I-AUV
+  std::shared_ptr<URDFRobot> urdf; ///< URDF I-AUV
   //osg::LightSource* lightSource;	///< vehicle lamp
   osg::ref_ptr<osg::MatrixTransform> baseTransform;
   osg::Vec3d scale;  //Vehicle scale factor
@@ -73,14 +62,6 @@ public:
   unsigned int getNumCams()
   {
     return camview.size();
-  }
-  unsigned int getNumRangeSensors()
-  {
-    return range_sensors.size();
-  }
-  unsigned int getNumObjectPickers()
-  {
-    return object_pickers.size();
   }
 
   ~SimulatedIAUV()

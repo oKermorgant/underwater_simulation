@@ -19,14 +19,9 @@
 #include "URDFRobot.h"
 #include "SimulatedIAUV.h"
 #include "VirtualCamera.h"
-#include "VirtualRangeSensor.h"
-#include "PressureSensor.h"
 #include "GPSSensor.h"
-#include "DVLSensor.h"
 #include "HUDCamera.h"
-#include "MultibeamSensor.h"
 #include "UWSimUtils.h"
-#include "BulletPhysics.h"
 #include "SceneBuilder.h"
 
 //OSG
@@ -52,14 +47,10 @@
 #include <sensor_msgs/Image.h>
 #include <sensor_msgs/CameraInfo.h>
 #include <sensor_msgs/distortion_models.h>
-#include <sensor_msgs/Range.h>
-#include <sensor_msgs/PointCloud2.h>
 #include <image_transport/image_transport.h>
 #include <geometry_msgs/TwistStamped.h>
 #include <geometry_msgs/Pose.h>
-//#include <cola2_common/NavigationData.h>
 #include <robot_state_publisher/robot_state_publisher.h>
-#include <pcl_ros/point_cloud.h>
 
 //Max time (in seconds) between two consecutive control references
 #define MAX_ELAPSED	1
@@ -157,79 +148,11 @@ public:
   ~ROSPoseToPAT();
 };
 
-class ROSPointCloudLoader : public ROSSubscriberInterface
-{
-  osg::ref_ptr<osg::Group> scene_root;
-  unsigned int nodeMask;
-  osg::ref_ptr < osg::MatrixTransform > lastPCD;
-  bool deleteLastPCD;
-public:
-  ROSPointCloudLoader(std::string topic, osg::ref_ptr<osg::Group> root, unsigned int mask,bool del);
-  virtual void createSubscriber(ros::NodeHandle &nh);
-  virtual void processData(const sensor_msgs::PointCloud2ConstPtr& msg);
-  void colourCloudDepth(pcl::PointCloud<pcl::PointXYZ>::Ptr cloudIn, pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud);
-  double interpolate(double val, double y0, double x0, double y1, double x1);
-  double base(double val);
-  ~ROSPointCloudLoader();
-};
-
-/*
- class ROSNavigationDataToPAT: public ROSSubscriberInterface {
- osg::PositionAttitudeTransform *transform;
- public:
- ROSNavigationDataToPAT(std::string topic, osg::PositionAttitudeTransform *t): ROSSubscriberInterface(topic) {
- transform=t;
- }
-
- virtual void createSubscriber(ros::NodeHandle &nh) {
- sub_ = nh.subscribe<cola2_common::NavigationData>(topic, 10, &ROSNavigationDataToPAT::processData, this);
- }
-
- virtual void processData(const cola2_common::NavigationData::ConstPtr& odom) {
- //Simulated vehicle frame wrt real vehicle frame
- vpHomogeneousMatrix vMsv(0.8,0,0.8,0,M_PI,0);
-
- vpHomogeneousMatrix sMsv;
-
-
- //Set a position reference
- //Pose of the real vehicle wrt to the localization origin
- vpRotationMatrix pRv(vpRxyzVector(odom->pose[3],odom->pose[4],odom->pose[5]));
- vpTranslationVector pTv(odom->pose[0],odom->pose[1],odom->pose[2]);
- vpHomogeneousMatrix pMv;
- pMv.buildFrom(pTv, pRv);
-
- //Localization origin wrt simulator origin
- vpRxyzVector sRVp(M_PI,0,-M_PI_2);
- vpRotationMatrix sRp(sRVp);
- vpTranslationVector sTp(-514921,-4677958,3.4);
-
- vpHomogeneousMatrix sMp;
- sMp.buildFrom(sTp,sRp);
-
- sMsv=sMp*pMv*vMsv;
-
- if (transform!=NULL) {
- //OSG_DEBUG << "SimulatedVehicle::processData baseTransform not null" << std::endl;
- transform->setPosition(osg::Vec3d(sMsv[0][3],sMsv[1][3],sMsv[2][3]));
- vpRotationMatrix mr;
- sMsv.extract(mr);
- vpRxyzVector vr(mr);
- osg::Quat sQsv(vr[0],osg::Vec3d(1,0,0), vr[1],osg::Vec3d(0,1,0), vr[2],osg::Vec3d(0,0,1));
- transform->setAttitude(sQsv);
- //baseTransform->setAttitude(osg::Quat(js->pose.pose.orientation.w,osg::Vec3d(0,0,1)));
- }
- }
-
- ~ROSNavigationDataToPAT(){}
- };
- */
-
 class ROSJointStateToArm : public ROSSubscriberInterface
 {
-  boost::shared_ptr<SimulatedIAUV> arm;
+  std::shared_ptr<SimulatedIAUV> arm;
 public:
-  ROSJointStateToArm(std::string topic, boost::shared_ptr<SimulatedIAUV> arm);
+  ROSJointStateToArm(std::string topic, std::shared_ptr<SimulatedIAUV> arm);
   virtual void createSubscriber(ros::NodeHandle &nh);
 
   virtual void processData(const sensor_msgs::JointState::ConstPtr& js);
@@ -238,12 +161,12 @@ public:
 
 class ROSImageToHUDCamera : public ROSSubscriberInterface
 {
-  boost::shared_ptr<HUDCamera> cam;
-  boost::shared_ptr<image_transport::ImageTransport> it;
+  std::shared_ptr<HUDCamera> cam;
+  std::shared_ptr<image_transport::ImageTransport> it;
   image_transport::Subscriber image_sub;
   std::string image_topic;
 public:
-  ROSImageToHUDCamera(std::string topic, std::string info_topic, boost::shared_ptr<HUDCamera> camera);
+  ROSImageToHUDCamera(std::string topic, std::string info_topic, std::shared_ptr<HUDCamera> camera);
 
   virtual void createSubscriber(ros::NodeHandle &nh);
 
@@ -284,8 +207,8 @@ public:
 class WorldToROSTF : public ROSPublisherInterface
 {
   std::vector< osg::ref_ptr<osg::MatrixTransform> > transforms_;
-  std::vector< boost::shared_ptr<robot_state_publisher::RobotStatePublisher> > robot_pubs_;
-  boost::shared_ptr<tf::TransformBroadcaster> tfpub_;
+  std::vector< std::shared_ptr<robot_state_publisher::RobotStatePublisher> > robot_pubs_;
+  std::shared_ptr<tf::TransformBroadcaster> tfpub_;
   std::string worldRootName_; 
   unsigned int enableObjects_;
   SceneBuilder * scene;
@@ -297,34 +220,6 @@ public:
   void publish();
 
   ~WorldToROSTF();
-};
-
-class ImuToROSImu : public ROSPublisherInterface
-{
-  InertialMeasurementUnit *imu_;
-
-public:
-  ImuToROSImu(InertialMeasurementUnit *imu, std::string topic, int rate);
-
-  void createPublisher(ros::NodeHandle &nh);
-
-  void publish();
-
-  ~ImuToROSImu();
-};
-
-class PressureSensorToROS : public ROSPublisherInterface
-{
-  PressureSensor *sensor_;
-
-public:
-  PressureSensorToROS(PressureSensor *sensor, std::string topic, int rate);
-
-  void createPublisher(ros::NodeHandle &nh);
-
-  void publish();
-
-  ~PressureSensorToROS();
 };
 
 class GPSSensorToROS : public ROSPublisherInterface
@@ -346,28 +241,9 @@ public:
   }
 };
 
-class DVLSensorToROS : public ROSPublisherInterface
-{
-  DVLSensor *sensor_;
-
-public:
-  DVLSensorToROS(DVLSensor *sensor, std::string topic, int rate) :
-      ROSPublisherInterface(topic, rate), sensor_(sensor)
-  {
-  }
-
-  void createPublisher(ros::NodeHandle &nh);
-
-  void publish();
-
-  ~DVLSensorToROS()
-  {
-  }
-};
-
 class ArmToROSJointState : public ROSPublisherInterface
 {
-  boost::shared_ptr<URDFRobot> arm;
+  std::shared_ptr<URDFRobot> arm;
 public:
   ArmToROSJointState(SimulatedIAUV *arm, std::string topic, int rate);
 
@@ -394,7 +270,7 @@ class VirtualCameraToROSImage : public ROSPublisherInterface
       int depth;
   };
 
-  boost::shared_ptr<image_transport::ImageTransport> it;
+  std::shared_ptr<image_transport::ImageTransport> it;
   image_transport::Publisher img_pub_;
   std::string image_topic;
   VirtualCamera *cam;
@@ -415,60 +291,4 @@ public:
 
 };
 
-class RangeCameraToPCL : public ROSPublisherInterface
-{
-  VirtualCamera *cam;
-
-public:
-
-  RangeCameraToPCL(VirtualCamera *camera, std::string topic, int rate);
-
-  void createPublisher(ros::NodeHandle &nh);
-
-  void publish();
-
-  ~RangeCameraToPCL();
-};
-
-class RangeSensorToROSRange : public ROSPublisherInterface
-{
-  VirtualRangeSensor *rs;
-public:
-  RangeSensorToROSRange(VirtualRangeSensor *rangesensor, std::string topic, int rate);
-
-  void createPublisher(ros::NodeHandle &nh);
-
-  void publish();
-
-  ~RangeSensorToROSRange();
-};
-
-class MultibeamSensorToROS : public ROSPublisherInterface
-{
-  MultibeamSensor *MB;
-public:
-  MultibeamSensorToROS(MultibeamSensor *multibeamSensor, std::string topic, int rate);
-
-  void createPublisher(ros::NodeHandle &nh);
-
-  void publish();
-
-  ~MultibeamSensorToROS();
-};
-
-class contactSensorToROS : public ROSPublisherInterface
-{
-  BulletPhysics * physics;
-  std::string target;
-  osg::Group *rootNode;
-public:
-  contactSensorToROS(osg::Group *rootNode, BulletPhysics * physics, std::string target, std::string topic, int rate);
-
-  void createPublisher(ros::NodeHandle &nh);
-
-  void publish();
-
-  ~contactSensorToROS();
-};
 #endif
-

@@ -34,7 +34,7 @@ ViewBuilder::ViewBuilder(ConfigFile &config, SceneBuilder *scene_builder, int *a
   init(config, scene_builder);
 }
 
-ViewBuilder::ViewBuilder(ConfigFile &config, SceneBuilder *scene_builder, boost::shared_ptr<osg::ArgumentParser> args)
+ViewBuilder::ViewBuilder(ConfigFile &config, SceneBuilder *scene_builder, std::shared_ptr<osg::ArgumentParser> args)
 {
   arguments = args;
   init(config, scene_builder);
@@ -224,10 +224,11 @@ bool ViewBuilder::init(ConfigFile &config, SceneBuilder *scene_builder)
   wm->resizeAllWindows();
 
   viewer->setSceneData(appgroup);
-
+/*
   for (unsigned int j = 0; j < scene_builder->iauvFile.size(); j++)
     for (unsigned int i = 0; i < scene_builder->iauvFile[j]->devices->all.size(); i++)
       scene_builder->iauvFile[j]->devices->all.at(i)->setViewBuilder(this);
+      */
   return true;
 }
 void ViewBuilder::init()

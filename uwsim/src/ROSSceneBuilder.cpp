@@ -14,7 +14,7 @@
 #include <uwsim/ROSSceneBuilder.h>
 
 
-ROSSceneBuilder::ROSSceneBuilder(boost::shared_ptr<osg::ArgumentParser> args)
+ROSSceneBuilder::ROSSceneBuilder(std::shared_ptr<osg::ArgumentParser> args)
 :SceneBuilder(args)
 {
 
@@ -55,7 +55,7 @@ bool  ROSSceneBuilder::markerSRVCallback(underwater_sensor_msgs::SpawnMarker::Re
 {
     return true;
 }
-/*  boost::shared_ptr<osg_markers::MarkerBase> markerSearch;
+/*  std::shared_ptr<osg_markers::MarkerBase> markerSearch;
   //Search for marker in markerList
   for (MarkerList::iterator iter = markerList.begin(); iter != markerList.end(); ++iter)
   {
@@ -93,7 +93,7 @@ bool  ROSSceneBuilder::markerSRVCallback(underwater_sensor_msgs::SpawnMarker::Re
     return true; 
   }
 
-  boost::shared_ptr<osg_markers::MarkerBase> marker;
+  std::shared_ptr<osg_markers::MarkerBase> marker;
   osg::MatrixTransform * parent = new osg::MatrixTransform();
 
   switch (req.marker.type)

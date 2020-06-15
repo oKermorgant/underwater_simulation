@@ -24,17 +24,12 @@
   <build_depend>libxml++-2.6</build_depend>
   <build_depend>nav_msgs</build_depend>
   <build_depend>opengl</build_depend>
-  <build_depend>pcl_ros</build_depend>
-  <build_depend>pluginlib</build_depend>
   <build_depend>resource_retriever</build_depend>
   <build_depend>robot_state_publisher</build_depend>
   <build_depend>roscpp</build_depend>
   <build_depend>sensor_msgs</build_depend>
   <build_depend>tf</build_depend> 
-  <build_depend>urdf</build_depend>  
-  <build_depend>underwater_sensor_msgs</build_depend> 
-  <build_depend>uwsim_bullet</build_depend>
-  <build_depend>uwsim_osgbullet</build_depend>
+  <build_depend>urdf</build_depend>
   <build_depend>uwsim_osgocean</build_depend>
   <build_depend>uwsim_osgworks</build_depend>
   <build_depend>xacro</build_depend>
@@ -48,25 +43,16 @@
   <run_depend>libxml++-2.6</run_depend>
   <run_depend>nav_msgs</run_depend>
   <run_depend>opengl</run_depend>
-  <run_depend>pcl_ros</run_depend>
-  <run_depend>pluginlib</run_depend>
   <run_depend>resource_retriever</run_depend>
   <run_depend>robot_state_publisher</run_depend>
   <run_depend>roscpp</run_depend>
   <run_depend>sensor_msgs</run_depend>
   <run_depend>tf</run_depend> 
   <run_depend>urdf</run_depend>  
-  <run_depend>underwater_sensor_msgs</run_depend> 
-  <run_depend>uwsim_bullet</run_depend>
-  <run_depend>uwsim_osgbullet</run_depend>
+  <run_depend>underwater_sensor_msgs</run_depend>
   <run_depend>uwsim_osgocean</run_depend>
   <run_depend>uwsim_osgworks</run_depend>
   <run_depend>xacro</run_depend>
-
-
-  <export>
-    <uwsim plugin="${prefix}/simdev_plugins.xml" />
-  </export>
 
 </package>
 

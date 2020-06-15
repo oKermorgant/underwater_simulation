@@ -32,7 +32,7 @@ public:
   std::string URDFFile;
 
   URDFRobot(osgOcean::OceanScene *oscene, Vehicle vehicle);
-  void addToKinematicChain(osg::Node * link, btRigidBody* body);
+  void addToKinematicChain(osg::Node * link);
 
   ~URDFRobot();
 

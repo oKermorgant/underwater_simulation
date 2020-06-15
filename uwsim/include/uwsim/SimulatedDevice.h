@@ -24,7 +24,6 @@ struct ROSInterface;
 struct ConfigFile;
 struct Vehicle;
 struct SceneBuilder;
-struct BulletPhysics;
 struct ViewBuilder;
 
 namespace uwsim
@@ -37,7 +36,7 @@ class SimulatedDeviceConfig
   std::string type;
 
 public:
-  typedef boost::shared_ptr<SimulatedDeviceConfig> Ptr;
+  typedef std::shared_ptr<SimulatedDeviceConfig> Ptr;
   //common XML properties:
   std::string name;
   std::string getType()
@@ -72,10 +71,10 @@ public:
   //normally, configuration should occur only on iteration 0
   virtual bool applyConfig(SimulatedIAUV * auv, Vehicle &vehicleChars, SceneBuilder *oscene, size_t iteration) = 0;
   //ROSINTERFACE: returns configured ROSInterfaces, executed third
-  virtual std::vector<boost::shared_ptr<ROSInterface> > getInterface(
-      ROSInterfaceInfo & rosInterface, std::vector<boost::shared_ptr<SimulatedIAUV> > & iauvFile)
+  virtual std::vector<std::shared_ptr<ROSInterface> > getInterface(
+      ROSInterfaceInfo & rosInterface, std::vector<std::shared_ptr<SimulatedIAUV> > & iauvFile)
   {
-    std::vector < boost::shared_ptr<ROSInterface> > ifaces;  
+    std::vector < std::shared_ptr<ROSInterface> > ifaces;  
     return ifaces;
   }
   ;
@@ -96,11 +95,8 @@ public:
   {
     return type;
   }
-  typedef boost::shared_ptr<SimulatedDevice> Ptr;
+  typedef std::shared_ptr<SimulatedDevice> Ptr;
   SimulatedDevice(SimulatedDeviceConfig * cfg);
-  virtual void applyPhysics(BulletPhysics * bulletPhysics)
-  {
-  }
   virtual void setViewBuilder(ViewBuilder * viewBuilder)
   {
   }

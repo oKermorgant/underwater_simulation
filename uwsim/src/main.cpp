@@ -19,19 +19,15 @@
 #include <uwsim/ConfigXMLParser.h>
 #include <uwsim/SceneBuilder.h>
 #include <uwsim/ViewBuilder.h>
-#include <uwsim/PhysicsBuilder.h>
-#include "osgbCollision/GLDebugDrawer.h"
 #include <uwsim/UWSimUtils.h>
 
 using namespace std;
-
-//#include "BulletPhysics.h"
 
 int main(int argc, char *argv[])
 {
   //osg::notify(osg::ALWAYS) << "UWSim; using osgOcean " << osgOceanGetVersion() << std::endl;
 
-  boost::shared_ptr<osg::ArgumentParser> arguments(new osg::ArgumentParser(&argc, argv));
+  std::shared_ptr<osg::ArgumentParser> arguments(new osg::ArgumentParser(&argc, argv));
   arguments->getApplicationUsage()->setApplicationName(arguments->getApplicationName());
   arguments->getApplicationUsage()->setDescription(arguments->getApplicationName() + " is using osgOcean.");
   arguments->getApplicationUsage()->setCommandLineUsage(arguments->getApplicationName() + " [options] ...");
@@ -88,13 +84,15 @@ int main(int argc, char *argv[])
   //Add current folder to path
   osgDB::Registry::instance()->getDataFilePathList().push_back(std::string("."));
   //Add UWSim folders to path
-  const std::string SIMULATOR_DATA_PATH = std::string(getenv("HOME")) + "/.uwsim/data";
-  osgDB::Registry::instance()->getDataFilePathList().push_back(std::string(SIMULATOR_DATA_PATH));
+  const auto SIMULATOR_DATA_PATH = std::string(getenv("HOME")) + "/.uwsim/data";
 
-  osgDB::Registry::instance()->getDataFilePathList().push_back(std::string(UWSIM_ROOT_PATH));
-  osgDB::Registry::instance()->getDataFilePathList().push_back(std::string(UWSIM_ROOT_PATH) + "/data");
-  osgDB::Registry::instance()->getDataFilePathList().push_back(std::string(UWSIM_ROOT_PATH) + "/data/scenes");
-  osgDB::Registry::instance()->getDataFilePathList().push_back(std::string(UWSIM_ROOT_PATH) + "/data/shaders");
+  for(std::string path: {SIMULATOR_DATA_PATH, std::string(UWSIM_ROOT_PATH)})
+  {
+      osgDB::Registry::instance()->getDataFilePathList().push_back(path);
+      osgDB::Registry::instance()->getDataFilePathList().push_back(path + "/data");
+      osgDB::Registry::instance()->getDataFilePathList().push_back(path + "/data/scenes");
+      osgDB::Registry::instance()->getDataFilePathList().push_back(path + "/data/shaders");
+  }
 
   //Add dataPath folder to path
   std::string dataPath("");
@@ -115,19 +113,6 @@ int main(int argc, char *argv[])
   SceneBuilder builder(arguments);
   builder.loadScene(config);
 
-  int drawPhysics = 0;
-  if (!arguments->read("--debugPhysics", osg::ArgumentParser::Parameter(drawPhysics))
-      && arguments->read("--debugPhysics"))
-    drawPhysics = 2;
-  boost::shared_ptr<osgbCollision::GLDebugDrawer> debugDrawer;
-  if (config.enablePhysics && drawPhysics > 0)
-  {
-    debugDrawer.reset(new osgbCollision::GLDebugDrawer());
-    debugDrawer->setDebugMode(drawPhysics);
-   // physicsBuilder.physics->dynamicsWorld->setDebugDrawer(debugDrawer.get());
-   // builder.getRoot()->addChild(debugDrawer->getSceneGraph());
-  }
-
   ViewBuilder view(config, &builder, arguments);
 
   view.init();
@@ -143,25 +128,6 @@ int main(int argc, char *argv[])
   {
     ROSInterface::setROSTime(ros::Time::now());
     ros::spinOnce();
-
-  /*  if (config.enablePhysics)
-    {
-      const double currSimTime = view.getViewer()->getFrameStamp()->getSimulationTime();
-      double elapsed(currSimTime - prevSimTime);
-      if (view.getViewer()->getFrameStamp()->getFrameNumber() < 3)
-        elapsed = 1. / 60.;
-      int subSteps = fmax(0, config.physicsConfig.subSteps);
-      if (subSteps == 0)
-        subSteps = ceil(elapsed * config.physicsConfig.frequency); //auto substep
-      physicsBuilder.physics->stepSimulation(elapsed, subSteps, 1 / config.physicsConfig.frequency);
-      prevSimTime = currSimTime;
-      if (debugDrawer)
-      {
-        debugDrawer->BeginDraw();
-        physicsBuilder.physics->dynamicsWorld->debugDrawWorld();
-        debugDrawer->EndDraw();
-      }
-    }*/
 
     view.getViewer()->frame();
 

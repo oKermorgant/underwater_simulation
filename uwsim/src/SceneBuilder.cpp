@@ -19,7 +19,6 @@
 
 #include <uwsim/osgOceanScene.h>
 #include <uwsim/HUDCamera.h>
-#include <uwsim/VirtualRangeSensor.h>
 #include <uwsim/ROSInterface.h>
 #include <uwsim/UWSimUtils.h>
 #include <uwsim/TrajectoryVisualization.h>
@@ -38,7 +37,7 @@ SceneBuilder::SceneBuilder(int *argc, char **argv)
   arguments.reset(new osg::ArgumentParser(argc, argv));
 }
 
-SceneBuilder::SceneBuilder(boost::shared_ptr<osg::ArgumentParser> args)
+SceneBuilder::SceneBuilder(std::shared_ptr<osg::ArgumentParser> args)
 {
   arguments = args;
 }
@@ -118,8 +117,10 @@ bool SceneBuilder::loadScene(ConfigFile config)
   root = new osg::Group;
 
   //Initialize ocean scene.
-  scene = new osgOceanScene(config.offsetp, config.offsetr, windDirection, windSpeed, depth, reflectionDamping, scale,
+  scene = std::make_shared<osgOceanScene>(config.offsetp, config.offsetr, windDirection, windSpeed, depth, reflectionDamping, scale,
                             isChoppy, choppyFactor, crestFoamHeight, false, "terrain");
+
+  scene->getOceanScene()->initSceneShader();
 
   if (disableShaders)
   {
@@ -166,7 +167,7 @@ bool SceneBuilder::loadScene(ConfigFile config)
   for (int i = 0; i < nvehicle; i++)
   {
     Vehicle vehicle = config.vehicles.front();
-    boost::shared_ptr < SimulatedIAUV > siauv(new SimulatedIAUV(this, vehicle));
+    std::shared_ptr < SimulatedIAUV > siauv(new SimulatedIAUV(this, vehicle));
     iauvFile.push_back(siauv);
     config.vehicles.pop_front();
 
@@ -266,31 +267,26 @@ bool SceneBuilder::loadScene(ConfigFile config)
   {
     ROSInterfaceInfo rosInterface = config.ROSInterfaces.front();
 
-    boost::shared_ptr < ROSInterface > iface;
+    std::shared_ptr < ROSInterface > iface;
     if (rosInterface.type == ROSInterfaceInfo::ROSOdomToPAT)
-      iface = boost::shared_ptr < ROSOdomToPAT
+      iface = std::shared_ptr < ROSOdomToPAT
           > (new ROSOdomToPAT(root, rosInterface.topic, rosInterface.targetName));
 
     if (rosInterface.type == ROSInterfaceInfo::ROSTwistToPAT)
-      iface = boost::shared_ptr < ROSTwistToPAT
+      iface = std::shared_ptr < ROSTwistToPAT
           > (new ROSTwistToPAT(root, rosInterface.topic, rosInterface.targetName));
 
     if (rosInterface.type == ROSInterfaceInfo::PATToROSOdom)
-      iface = boost::shared_ptr < PATToROSOdom
+      iface = std::shared_ptr < PATToROSOdom
           > (new PATToROSOdom(root, rosInterface.targetName, rosInterface.topic, rosInterface.rate));
 
     if (rosInterface.type == ROSInterfaceInfo::WorldToROSTF)
     {
-      iface = boost::shared_ptr < WorldToROSTF
+      iface = std::shared_ptr < WorldToROSTF
           > (new WorldToROSTF( this, rosInterface.rootName, rosInterface.enableObjects, rosInterface.rate));
 
     }
-    if (rosInterface.type == ROSInterfaceInfo::ROSPointCloudLoader)
-    {
-      iface = boost::shared_ptr < ROSPointCloudLoader
-          > (new ROSPointCloudLoader(rosInterface.topic,root,scene->getOceanScene()->getARMask(),rosInterface.del));
 
-    }
     if (rosInterface.type == ROSInterfaceInfo::ROSJointStateToArm
         || rosInterface.type == ROSInterfaceInfo::ArmToROSJointState)
     {
@@ -301,9 +297,9 @@ bool SceneBuilder::loadScene(ConfigFile config)
         if (iauvFile[j]->name == rosInterface.targetName)
         {
           if (rosInterface.type == ROSInterfaceInfo::ROSJointStateToArm)
-            iface = boost::shared_ptr < ROSJointStateToArm > (new ROSJointStateToArm(rosInterface.topic, iauvFile[j]));
+            iface = std::shared_ptr < ROSJointStateToArm > (new ROSJointStateToArm(rosInterface.topic, iauvFile[j]));
           else
-            iface = boost::shared_ptr < ArmToROSJointState
+            iface = std::shared_ptr < ArmToROSJointState
                 > (new ArmToROSJointState(iauvFile[j].get(), rosInterface.topic, rosInterface.rate));
 	  correspondences++;
         }
@@ -323,7 +319,7 @@ bool SceneBuilder::loadScene(ConfigFile config)
         for (unsigned int c = 0; c < iauvFile[j]->getNumCams(); c++)
           if (iauvFile[j]->camview[c].name == rosInterface.targetName)
 	  {
-            iface = boost::shared_ptr < VirtualCameraToROSImage
+            iface = std::shared_ptr < VirtualCameraToROSImage
                 > (new VirtualCameraToROSImage(&(iauvFile[j]->camview[c]), rosInterface.topic, rosInterface.infoTopic,
                                                rosInterface.rate, rosInterface.depth));
 	    correspondences++;
@@ -335,123 +331,15 @@ bool SceneBuilder::loadScene(ConfigFile config)
         ROS_WARN ("VirtualCameraToROSInterface more than one %s cameras.",rosInterface.targetName.c_str());
     }
 
-    if (rosInterface.type == ROSInterfaceInfo::RangeCameraToPCL)
-    {
-      int correspondences=0;
-      //Find corresponding VirtualCamera Object on all the vehicles
-      for (int j = 0; j < nvehicle; j++)
-      {
-        for (unsigned int c = 0; c < iauvFile[j]->getNumCams(); c++)
-          if (iauvFile[j]->camview[c].name == rosInterface.targetName)
-	  {
-            iface = boost::shared_ptr < RangeCameraToPCL
-                > (new RangeCameraToPCL(&(iauvFile[j]->camview[c]), rosInterface.topic,rosInterface.rate));
-	    correspondences++;
-	  }
-      }
-      if(correspondences==0)
-        ROS_WARN ("VirtualCameraToROSInterface is not able to find %s camera.",rosInterface.targetName.c_str());
-      else if (correspondences > 1)
-        ROS_WARN ("VirtualCameraToROSInterface more than one %s cameras.",rosInterface.targetName.c_str());
-    }
-
-    if (rosInterface.type == ROSInterfaceInfo::RangeImageSensorToROSImage)
-    {
-      int correspondences=0;
-      //Find corresponding VirtualCamera Object on all the vehicles
-      for (int j = 0; j < nvehicle; j++)
-      {
-        for (unsigned int c = 0; c < iauvFile[j]->getNumCams(); c++)
-          if (iauvFile[j]->camview[c].name == rosInterface.targetName)
-	  {
-            iface = boost::shared_ptr < VirtualCameraToROSImage
-                > (new VirtualCameraToROSImage(&(iauvFile[j]->camview[c]), rosInterface.topic, rosInterface.infoTopic,
-                                               rosInterface.rate, 1));
-	    correspondences++;
-	  }
-      }
-      if(correspondences==0)
-        ROS_WARN ("RangeImageSensorToROSImage is not able to find %s sensor.",rosInterface.targetName.c_str());
-      else if (correspondences > 1)
-        ROS_WARN ("RangeImageSensorToROSImage more than one %s sensors.",rosInterface.targetName.c_str());
-    }
-
     if (rosInterface.type == ROSInterfaceInfo::ROSImageToHUD)
     {
-      boost::shared_ptr < HUDCamera
+      std::shared_ptr < HUDCamera
           > realcam(
               new HUDCamera(rosInterface.w, rosInterface.h, rosInterface.posx, rosInterface.posy, rosInterface.scale,
                             rosInterface.blackWhite));
-      iface = boost::shared_ptr < ROSImageToHUDCamera
+      iface = std::shared_ptr < ROSImageToHUDCamera
           > (new ROSImageToHUDCamera(rosInterface.topic, rosInterface.infoTopic, realcam));
       realcams.push_back(realcam);
-    }
-
-    if (rosInterface.type == ROSInterfaceInfo::RangeSensorToROSRange)
-    {
-      int correspondences=0;
-      //Find corresponding VirtualRangeSensor Object on all the vehicles (look for rangeSensors and objectPickers)
-      for (int j = 0; j < nvehicle; j++)
-      {
-        for (unsigned int c = 0; c < iauvFile[j]->getNumRangeSensors(); c++)
-          if (iauvFile[j]->range_sensors[c].name == rosInterface.targetName)
-	  {
-            iface = boost::shared_ptr < RangeSensorToROSRange
-                > (new RangeSensorToROSRange(&(iauvFile[j]->range_sensors[c]), rosInterface.topic, rosInterface.rate));
-	    correspondences++;
-	  }
-
-        for (unsigned int c = 0; c < iauvFile[j]->getNumObjectPickers(); c++)
-          if (iauvFile[j]->object_pickers[c].name == rosInterface.targetName)
-	  {
-            iface = boost::shared_ptr < RangeSensorToROSRange
-                > (new RangeSensorToROSRange(&(iauvFile[j]->object_pickers[c]), rosInterface.topic, rosInterface.rate));
-	    correspondences++;
-	  }
-      }
-      if(correspondences==0)
-        ROS_WARN ("RangeSensorToROSRange is not able to find %s sensor.",rosInterface.targetName.c_str());
-      else if (correspondences > 1)
-        ROS_WARN ("RangeSensorToROSRange more than one %s sensors.",rosInterface.targetName.c_str());
-    }
-
-    if (rosInterface.type == ROSInterfaceInfo::ImuToROSImu)
-    {
-      int correspondences=0;
-      //Find corresponding IMU Object on all the vehicles
-      for (int j = 0; j < nvehicle; j++)
-      {
-        for (unsigned int i = 0; i < iauvFile[j]->imus.size(); i++)
-          if (iauvFile[j]->imus[i].name == rosInterface.targetName)
-	  {
-            iface = boost::shared_ptr < ImuToROSImu
-                > (new ImuToROSImu(&(iauvFile[j]->imus[i]), rosInterface.topic, rosInterface.rate));
-	    correspondences++;
-	  }
-      }
-      if(correspondences==0)
-        ROS_WARN ("ImuToROSImu is not able to find %s sensor.",rosInterface.targetName.c_str());
-      else if (correspondences > 1)
-        ROS_WARN ("ImuToROSImu more than one %s sensors.",rosInterface.targetName.c_str());
-    }
-
-    if (rosInterface.type == ROSInterfaceInfo::PressureSensorToROS)
-    {
-      int correspondences=0;
-      for (int j = 0; j < nvehicle; j++)
-      {
-        for (unsigned int i = 0; i < iauvFile[j]->pressure_sensors.size(); i++)
-          if (iauvFile[j]->pressure_sensors[i].name == rosInterface.targetName)
-	  {
-            iface = boost::shared_ptr < PressureSensorToROS
-                > (new PressureSensorToROS(&(iauvFile[j]->pressure_sensors[i]), rosInterface.topic, rosInterface.rate));
-	    correspondences++;
-	  }
-      }
-      if(correspondences==0)
-        ROS_WARN ("PressureSensorToROS is not able to find %s sensor.",rosInterface.targetName.c_str());
-      else if (correspondences > 1)
-        ROS_WARN ("PressureSensorToROS more than one %s sensors.",rosInterface.targetName.c_str());
     }
 
     if (rosInterface.type == ROSInterfaceInfo::GPSSensorToROS)
@@ -462,7 +350,7 @@ bool SceneBuilder::loadScene(ConfigFile config)
         for (unsigned int i = 0; i < iauvFile[j]->gps_sensors.size(); i++)
           if (iauvFile[j]->gps_sensors[i].name == rosInterface.targetName)
 	  {
-            iface = boost::shared_ptr < GPSSensorToROS
+            iface = std::shared_ptr < GPSSensorToROS
                 > (new GPSSensorToROS(&(iauvFile[j]->gps_sensors[i]), rosInterface.topic, rosInterface.rate));
 	    correspondences++;
 	  }
@@ -473,55 +361,15 @@ bool SceneBuilder::loadScene(ConfigFile config)
         ROS_WARN ("GPSSensorToROS more than one %s sensors.",rosInterface.targetName.c_str());
     }
 
-    if (rosInterface.type == ROSInterfaceInfo::DVLSensorToROS)
-    {
-      int correspondences=0;
-      for (int j = 0; j < nvehicle; j++)
-      {
-        for (unsigned int i = 0; i < iauvFile[j]->dvl_sensors.size(); i++)
-          if (iauvFile[j]->dvl_sensors[i].name == rosInterface.targetName)
-	  {
-            iface = boost::shared_ptr < DVLSensorToROS
-                > (new DVLSensorToROS(&(iauvFile[j]->dvl_sensors[i]), rosInterface.topic, rosInterface.rate));
-	    correspondences++;
-	  }
-      }
-      if(correspondences==0)
-        ROS_WARN ("DVLSensorToROS is not able to find %s sensor.",rosInterface.targetName.c_str());
-      else if (correspondences > 1)
-        ROS_WARN ("DVLSensorToROS more than one %s sensors.",rosInterface.targetName.c_str());
-    }
-
-    if (rosInterface.type == ROSInterfaceInfo::multibeamSensorToLaserScan)
-    {
-      int correspondences=0;
-      for (int j = 0; j < nvehicle; j++)
-      {
-        for (unsigned int i = 0; i < iauvFile[j]->multibeam_sensors.size(); i++)
-          if (iauvFile[j]->multibeam_sensors[i].name == rosInterface.targetName)
-	  {
-            iface =
-                boost::shared_ptr < MultibeamSensorToROS
-                    > (new MultibeamSensorToROS(&(iauvFile[j]->multibeam_sensors[i]), rosInterface.topic,
-                                                rosInterface.rate));
-	    correspondences++;
-	  }
-      }
-      if(correspondences==0)
-        ROS_WARN ("multibeamSensorToLaserScan is not able to find %s sensor.",rosInterface.targetName.c_str());
-      else if (correspondences > 1)
-        ROS_WARN ("multibeamSensorToLaserScan more than one %s sensors.",rosInterface.targetName.c_str());
-    }
-
     if (rosInterface.type == ROSInterfaceInfo::ROSPoseToPAT)
-      iface = boost::shared_ptr < ROSPoseToPAT > (new ROSPoseToPAT(root, rosInterface.topic, rosInterface.targetName));
+      iface = std::shared_ptr < ROSPoseToPAT > (new ROSPoseToPAT(root, rosInterface.topic, rosInterface.targetName));
 
-    if (rosInterface.type == ROSInterfaceInfo::SimulatedDevice)
+   /* if (rosInterface.type == ROSInterfaceInfo::SimulatedDevice)
     {
-      std::vector < boost::shared_ptr<ROSInterface> > ifaces = SimulatedDevices::getInterfaces(rosInterface, iauvFile);
+      std::vector < std::shared_ptr<ROSInterface> > ifaces = SimulatedDevices::getInterfaces(rosInterface, iauvFile);
       for (size_t i = 0; i < ifaces.size(); ++i)
         ROSInterfaces.push_back(ifaces[i]);
-    }
+    }*/
 
     if (iface)
       ROSInterfaces.push_back(iface);
@@ -559,4 +407,3 @@ SceneBuilder::~SceneBuilder()
   //}
 
 }
-

@@ -17,7 +17,7 @@
 #ifndef CONFIGXMLPARSER_H_
 #define CONFIGXMLPARSER_H_
 
-#include "SimulatedDevices.h"
+#include "SimulatedDevice.h"
 #include <libxml++/libxml++.h>
 #include <urdf/model.h>
 
@@ -31,9 +31,8 @@ struct ROSInterfaceInfo
   typedef enum
   {
     Unknown, ROSOdomToPAT, PATToROSOdom, ROSJointStateToArm, ArmToROSJointState, VirtualCameraToROSImage,
-    RangeSensorToROSRange, ROSImageToHUD, ROSTwistToPAT, ROSPoseToPAT, ImuToROSImu, PressureSensorToROS, GPSSensorToROS,
-    DVLSensorToROS, RangeImageSensorToROSImage, multibeamSensorToLaserScan, SimulatedDevice, contactSensorToROS, WorldToROSTF,
-    ROSPointCloudLoader, RangeCameraToPCL
+    ROSImageToHUD, ROSTwistToPAT, ROSPoseToPAT, GPSSensorToROS,
+    SimulatedDevice, WorldToROSTF
   } type_t;
   string subtype; //type of a SimulatedDevice
   std::map<std::string, std::string> values; //all configuration values for a SimulatedDevice
@@ -62,7 +61,7 @@ struct Vcam
   double baseLine; ///baseline for stereo cameras
   double fov;
   double std; //Additive gaussian noise deviation
-  boost::shared_ptr<Parameters> parameters;
+  std::shared_ptr<Parameters> parameters;
   bool underwaterParticles;
   void init()
   {
@@ -115,71 +114,6 @@ struct slProjector
   }
 };
 
-struct rangeSensor
-{
-  string name;
-  string linkName;
-  double position[3], orientation[3];
-  double range;
-  int visible;
-  int link;
-  void init()
-  {
-    name = "";
-    linkName = "";
-    position[0] = 0;
-    position[1] = 0;
-    position[2] = 0;
-    orientation[0] = 0;
-    orientation[1] = 0;
-    orientation[2] = 0;
-    range = 0;
-    visible = 0;
-  }
-};
-
-struct Imu
-{
-  string name;
-  string linkName;
-  double std; //standard deviation
-  double position[3], orientation[3];
-  int link;
-  void init()
-  {
-    name = "";
-    linkName = "";
-    std = 0.0;
-    position[0] = 0;
-    position[1] = 0;
-    position[2] = 0;
-    orientation[0] = 0;
-    orientation[1] = 0;
-    orientation[2] = 0;
-  }
-};
-
-struct XMLPressureSensor
-{
-  string name;
-  string linkName;
-  double std; //standard deviation
-  double position[3], orientation[3];
-  int link;
-  void init()
-  {
-    name = "";
-    linkName = "";
-    std = 0.0;
-    position[0] = 0;
-    position[1] = 0;
-    position[2] = 0;
-    orientation[0] = 0;
-    orientation[1] = 0;
-    orientation[2] = 0;
-  }
-};
-
 struct XMLGPSSensor
 {
   string name;
@@ -198,51 +132,6 @@ struct XMLGPSSensor
     orientation[0] = 0;
     orientation[1] = 0;
     orientation[2] = 0;
-  }
-};
-
-struct XMLDVLSensor
-{
-  string name;
-  string linkName;
-  double std; //standard deviation
-  double position[3], orientation[3];
-  int link;
-  void init()
-  {
-    name = "";
-    linkName = "";
-    std = 0.0;
-    position[0] = 0;
-    position[1] = 0;
-    position[2] = 0;
-    orientation[0] = 0;
-    orientation[1] = 0;
-    orientation[2] = 0;
-  }
-};
-
-struct XMLMultibeamSensor
-{
-  string name;
-  string linkName;
-  double position[3], orientation[3];
-  int link;
-  int visible;
-  double initAngle, finalAngle, angleIncr, range;
-  bool underwaterParticles;
-  void init()
-  {
-    name = "";
-    linkName = "";
-    position[0] = 0;
-    position[1] = 0;
-    position[2] = 0;
-    orientation[0] = 0;
-    orientation[1] = 0;
-    orientation[2] = 0;
-    underwaterParticles=false;
-    visible = 0;
   }
 };
 
@@ -268,7 +157,7 @@ struct Link
   double rpy[3];
   double quat[4];
   std::string material;
-  boost::shared_ptr<Geometry> cs, geom;
+  std::shared_ptr<Geometry> cs, geom;
   double mass;
 };
 
@@ -278,7 +167,7 @@ struct Joint
   int parent, child; //references to Link
   int mimicp, type; //0 fixed, 1 rotation, 2 prismatic.
   float lowLimit, upLimit;
-  boost::shared_ptr<Mimic> mimic;
+  std::shared_ptr<Mimic> mimic;
   double position[3];
   double rpy[3];
   double axis[3];
@@ -307,13 +196,8 @@ struct Vehicle
   std::list<Vcam> Vcams;
   std::list<Vcam> VRangecams;
   std::list<slProjector> sls_projectors;
-  std::list<rangeSensor> range_sensors, object_pickers;
-  std::list<Imu> imus;
-  std::list<XMLPressureSensor> pressure_sensors;
   std::list<XMLGPSSensor> gps_sensors;
-  std::list<XMLDVLSensor> dvl_sensors;
-  std::list<XMLMultibeamSensor> multibeam_sensors;
-  std::vector<uwsim::SimulatedDeviceConfig::Ptr> simulated_devices;
+  //std::vector<uwsim::SimulatedDeviceConfig::Ptr> simulated_devices;
   std::string URDFFile;
 };
 
@@ -365,7 +249,7 @@ struct Object
   double offsetp[3];
   double offsetr[3];
   double buried;// % Object buried in the seafloor
-  boost::shared_ptr<PhysicProperties> physicProperties;
+  std::shared_ptr<PhysicProperties> physicProperties;
 };
 
 struct ShowTrajectory
@@ -425,12 +309,7 @@ public:
   void processParameters(const xmlpp::Node*, Parameters *params);
   void processVcam(const xmlpp::Node* node, Vcam &vcam);
   void processSLProjector(const xmlpp::Node* node, slProjector &slp);
-  void processRangeSensor(const xmlpp::Node* node, rangeSensor &rs);
-  void processImu(const xmlpp::Node* node, Imu &rs);
-  void processPressureSensor(const xmlpp::Node* node, XMLPressureSensor &ps);
-  void processDVLSensor(const xmlpp::Node* node, XMLDVLSensor &s);
   void processGPSSensor(const xmlpp::Node* node, XMLGPSSensor &s);
-  void processMultibeamSensor(const xmlpp::Node* node, XMLMultibeamSensor &s);
   void processCamera(const xmlpp::Node* node);
   void processJointValues(const xmlpp::Node* node, std::vector<double> &jointValues, int &ninitJoints);
   void processVehicle(const xmlpp::Node* node, Vehicle &vehicle);

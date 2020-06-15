@@ -162,59 +162,6 @@ SimulatedIAUV::SimulatedIAUV(SceneBuilder *oscene, Vehicle vehicleChars) :
     OSG_INFO << "Done adding a structured light projector..." << std::endl;
   }
 
-  //Adding range sensors
-  while (vehicleChars.range_sensors.size() > 0)
-  {
-    OSG_INFO << "Adding a virtual range sensor..." << std::endl;
-    rangeSensor rs;
-    rs = vehicleChars.range_sensors.front();
-    vehicleChars.range_sensors.pop_front();
-    osg::ref_ptr < osg::Transform > vMr = (osg::Transform*)new osg::PositionAttitudeTransform;
-    vMr->asPositionAttitudeTransform()->setPosition(osg::Vec3d(rs.position[0], rs.position[1], rs.position[2]));
-    vMr->asPositionAttitudeTransform()->setAttitude(
-        osg::Quat(rs.orientation[0], osg::Vec3d(1, 0, 0), rs.orientation[1], osg::Vec3d(0, 1, 0), rs.orientation[2],
-                  osg::Vec3d(0, 0, 1)));
-    urdf->link[rs.link]->getParent(0)->getParent(0)->asGroup()->addChild(vMr);
-    range_sensors.push_back(
-        VirtualRangeSensor(rs.name, rs.linkName, oscene->scene->localizedWorld, vMr, rs.range, (rs.visible) ? true : false,
-        oscene->scene->getOceanScene()->getARMask()));
-    OSG_INFO << "Done adding a virtual range sensor..." << std::endl;
-  }
-
-  //Adding imus
-  while (vehicleChars.imus.size() > 0)
-  {
-    OSG_INFO << "Adding an IMU..." << std::endl;
-    Imu imu;
-    imu = vehicleChars.imus.front();
-    vehicleChars.imus.pop_front();
-    osg::ref_ptr < osg::Transform > vMi = (osg::Transform*)new osg::PositionAttitudeTransform;
-    vMi->asPositionAttitudeTransform()->setPosition(osg::Vec3d(imu.position[0], imu.position[1], imu.position[2]));
-    vMi->asPositionAttitudeTransform()->setAttitude(
-        osg::Quat(imu.orientation[0], osg::Vec3d(1, 0, 0), imu.orientation[1], osg::Vec3d(0, 1, 0), imu.orientation[2],
-                  osg::Vec3d(0, 0, 1)));
-    urdf->link[imu.link]->getParent(0)->getParent(0)->asGroup()->addChild(vMi);
-    imus.push_back(InertialMeasurementUnit(imu.name, imu.linkName, vMi, oscene->scene->localizedWorld->getMatrix(), imu.std));
-    OSG_INFO << "Done adding an IMU..." << std::endl;
-  }
-
-  //Adding pressure sensors
-  while (vehicleChars.pressure_sensors.size() > 0)
-  {
-    OSG_INFO << "Adding a pressure sensor..." << std::endl;
-    XMLPressureSensor ps;
-    ps = vehicleChars.pressure_sensors.front();
-    vehicleChars.pressure_sensors.pop_front();
-    osg::ref_ptr < osg::Transform > vMs = (osg::Transform*)new osg::PositionAttitudeTransform;
-    vMs->asPositionAttitudeTransform()->setPosition(osg::Vec3d(ps.position[0], ps.position[1], ps.position[2]));
-    vMs->asPositionAttitudeTransform()->setAttitude(
-        osg::Quat(ps.orientation[0], osg::Vec3d(1, 0, 0), ps.orientation[1], osg::Vec3d(0, 1, 0), ps.orientation[2],
-                  osg::Vec3d(0, 0, 1)));
-    urdf->link[ps.link]->getParent(0)->getParent(0)->asGroup()->addChild(vMs);
-    pressure_sensors.push_back(PressureSensor(ps.name, ps.linkName, vMs, oscene->scene->localizedWorld->getMatrix(), ps.std));
-    OSG_INFO << "Done adding an Pressure Sensor..." << std::endl;
-  }
-
   //Adding GPS sensors
   while (vehicleChars.gps_sensors.size() > 0)
   {
@@ -228,74 +175,13 @@ SimulatedIAUV::SimulatedIAUV(SceneBuilder *oscene, Vehicle vehicleChars) :
         osg::Quat(ps.orientation[0], osg::Vec3d(1, 0, 0), ps.orientation[1], osg::Vec3d(0, 1, 0), ps.orientation[2],
                   osg::Vec3d(0, 0, 1)));
     urdf->link[ps.link]->getParent(0)->getParent(0)->asGroup()->addChild(vMs);
-    gps_sensors.push_back(GPSSensor(oscene->scene, ps.name, ps.linkName , vMs, oscene->scene->localizedWorld->getMatrix(), ps.std));
+    gps_sensors.push_back(GPSSensor(oscene->scene.get(), ps.name, ps.linkName , vMs, oscene->scene->localizedWorld->getMatrix(), ps.std));
     OSG_INFO << "Done adding an GPS Sensor..." << std::endl;
   }
 
-  //Adding dvl sensors
-  while (vehicleChars.dvl_sensors.size() > 0)
-  {
-    OSG_INFO << "Adding a dvl sensor..." << std::endl;
-    XMLDVLSensor ps;
-    ps = vehicleChars.dvl_sensors.front();
-    vehicleChars.dvl_sensors.pop_front();
-    osg::ref_ptr < osg::Transform > vMs = (osg::Transform*)new osg::PositionAttitudeTransform;
-    vMs->asPositionAttitudeTransform()->setPosition(osg::Vec3d(ps.position[0], ps.position[1], ps.position[2]));
-    vMs->asPositionAttitudeTransform()->setAttitude(
-        osg::Quat(ps.orientation[0], osg::Vec3d(1, 0, 0), ps.orientation[1], osg::Vec3d(0, 1, 0), ps.orientation[2],
-                  osg::Vec3d(0, 0, 1)));
-    urdf->link[ps.link]->getParent(0)->getParent(0)->asGroup()->addChild(vMs);
-    dvl_sensors.push_back(DVLSensor(ps.name, ps.linkName, vMs, oscene->scene->localizedWorld->getMatrix(), ps.std));
-    OSG_INFO << "Done adding an DVL Sensor..." << std::endl;
-  }
 
-  //Adding Multibeam sensors
-  while (vehicleChars.multibeam_sensors.size() > 0)
-  {
-    OSG_INFO << "Adding a Multibeam sensor..." << std::endl;
-    XMLMultibeamSensor MB;
-    MB = vehicleChars.multibeam_sensors.front();
-    vehicleChars.multibeam_sensors.pop_front();
-    osg::ref_ptr < osg::Transform > vMs = (osg::Transform*)new osg::PositionAttitudeTransform;
-    vMs->asPositionAttitudeTransform()->setPosition(osg::Vec3d(MB.position[0], MB.position[1], MB.position[2]));
-    vMs->asPositionAttitudeTransform()->setAttitude(
-        osg::Quat(MB.orientation[0], osg::Vec3d(1, 0, 0), MB.orientation[1], osg::Vec3d(0, 1, 0), MB.orientation[2],
-                  osg::Vec3d(0, 0, 1)));
-    urdf->link[MB.link]->getParent(0)->getParent(0)->asGroup()->addChild(vMs);
-    unsigned int mask;
-    if(MB.underwaterParticles)
-      mask=oscene->scene->getOceanScene()->getARMask();
-    else
-      mask=oscene->scene->getOceanScene()->getNormalSceneMask(); //Normal Scene mask should be enough for range sensor
-    MultibeamSensor mb = MultibeamSensor(oscene->root, MB.name, MB.linkName, vMs, MB.initAngle, MB.finalAngle, MB.angleIncr,
-                                         MB.range,mask,MB.visible,mask);
-    multibeam_sensors.push_back(mb);
-    for(unsigned int i=0;i<mb.nCams;i++)
-      camview.push_back(mb.vcams[i]);
-    OSG_INFO << "Done adding a Multibeam Sensor..." << std::endl;
-  }
-
-  //Adding object pickers
-  while (vehicleChars.object_pickers.size() > 0)
-  {
-    OSG_INFO << "Adding an object picker..." << std::endl;
-    rangeSensor rs;
-    rs = vehicleChars.object_pickers.front();
-    vehicleChars.object_pickers.pop_front();
-    osg::ref_ptr < osg::Transform > vMr = (osg::Transform*)new osg::PositionAttitudeTransform;
-    vMr->asPositionAttitudeTransform()->setPosition(osg::Vec3d(rs.position[0], rs.position[1], rs.position[2]));
-    vMr->asPositionAttitudeTransform()->setAttitude(
-        osg::Quat(rs.orientation[0], osg::Vec3d(1, 0, 0), rs.orientation[1], osg::Vec3d(0, 1, 0), rs.orientation[2],
-                  osg::Vec3d(0, 0, 1)));
-    vMr->setName("ObjectPickerNode");
-    urdf->link[rs.link]->asGroup()->addChild(vMr);
-    object_pickers.push_back(ObjectPicker(rs.name, oscene->scene->localizedWorld, vMr, rs.range, true, urdf,
-        oscene->scene->getOceanScene()->getARMask()));
-    OSG_INFO << "Done adding an object picker..." << std::endl;
-  }
-
-  devices.reset(new SimulatedDevices());
-  devices->applyConfig(this, vehicleChars, oscene);
+  //devices.reset(new SimulatedDevices());
+  //devices->applyConfig(this, vehicleChars, oscene);
 
   //Set-up a lamp attached to the vehicle: TODO
   /*

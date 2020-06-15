@@ -28,7 +28,7 @@ class ROSSceneBuilder : public SceneBuilder
 
 public:
 
-  ROSSceneBuilder(boost::shared_ptr<osg::ArgumentParser> args);
+  ROSSceneBuilder(std::shared_ptr<osg::ArgumentParser> args);
   bool loadScene(ConfigFile config);
 
   void updateIM();
@@ -38,7 +38,7 @@ private:
   ros::NodeHandle n;
   ros::ServiceServer markerService;
   osg::Group * markers;
-  boost::shared_ptr<osg_utils::FrameManager> frame_manager;
+  std::shared_ptr<osg_utils::FrameManager> frame_manager;
   ros::WallTime last_wall_time;
   ros::Time last_ros_time;
 

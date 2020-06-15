@@ -389,14 +389,14 @@ osg::Geode* osgOceanScene::sunDebug(const osg::Vec3f& position)
 
 osg::Node* osgOceanScene::addObject(osg::Transform *transform, std::string filename, Object *o)
 {
-  const std::string SIMULATOR_DATA_PATH = std::string(getenv("HOME")) + "/.uwsim/data";
-  osgDB::Registry::instance()->getDataFilePathList().push_back(std::string(SIMULATOR_DATA_PATH));
-  osgDB::Registry::instance()->getDataFilePathList().push_back(
-      std::string(SIMULATOR_DATA_PATH) + std::string("/objects"));
-  osgDB::Registry::instance()->getDataFilePathList().push_back(
-      std::string(SIMULATOR_DATA_PATH) + std::string("/terrain"));
-  osgDB::Registry::instance()->getDataFilePathList().push_back(
-      std::string(UWSIM_ROOT_PATH) + std::string("/data/shaders"));
+
+    for(std::string path: {std::string(getenv("HOME")) + "/.uwsim/data", std::string(UWSIM_ROOT_PATH)})
+    {
+        for(std::string sub: {"", "/objects", "/terrain", "/shaders", "/data/shaders"})
+        {
+            osgDB::Registry::instance()->getDataFilePathList().push_back(path + sub);
+        }
+    }
   osg::ref_ptr < osg::Node > object = osgDB::readNodeFile(filename);
 
   if (!object.valid())

@@ -19,7 +19,6 @@
 
 #include <iostream>
 #include <string.h>
-#include "BulletPhysics.h"
 
 struct MimicArm
 {
@@ -43,12 +42,6 @@ public:
   std::vector<osg::ref_ptr<osg::MatrixTransform> > joints; ///< pointers to transforms between links
   std::vector<osg::ref_ptr<osg::MatrixTransform> > zerojoints; ///<pointers to original (zero) transforms between links
   osg::ref_ptr<osg::MatrixTransform> baseTransform; ///<pointer to the first node in the graph (base tranform)
-
-  //osg::MatrixTransform *tool_transform;	///< Transform between the end-effector and the tool base frame
-  //osg::ref_ptr<osg::Node> tool;		///< Pointer to the tool osg node
-
-  std::vector<double> qLastSafe; ///< Last joint values not colliding
-  BulletPhysics * physics; /// Bullet physics pointer to query
 
   ros::WallTime last;
   int started;
