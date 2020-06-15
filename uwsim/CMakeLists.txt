@@ -77,10 +77,13 @@ src/UWSimUtils.cpp
 src/ROSInterface.cpp
 src/SceneBuilder.cpp
 src/ViewBuilder.cpp
-#src/SimulatedDevices.cpp
 src/GPSSensor.cpp
 src/VirtualSLSProjector.cpp
 )
+
+if(($ENV{ROS_DISTRO} STREQUAL "kinetic") OR ($ENV{ROS_DISTRO} STREQUAL "melodic"))
+target_compile_definitions(uwsim PRIVATE "-DLEGACY_OSGOCEAN")
+endif()
 
 target_link_libraries(uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${OSGOCEAN_LIBRARIES} ${OSGWORKS_LIBRARIES} ${OSGBULLET_LIBRARIES} ${BULLET_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${LIBXML++_LIBRARIES} -lGLU)
 

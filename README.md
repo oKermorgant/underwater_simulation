@@ -6,14 +6,18 @@ UWSim, the Underwater Simulator
 
 ** Note** This version is ligher than the upstream, without plugins and dynamics. 
 
-
 Installation instructions
 ------------------------
 
 - Download this repository inside a ROS workspace
 - Install required dependencies: `sudo apt install -y libopenscenegraph-dev libfftw3-dev libxml++2.6-dev ros-$ROS1_DISTRO-control-toolbox`
-- Compile 3rd parties projects with: `cmake` / `sudo make install`
+
+- If using ROS melodic or kinetic, populate the `submodules` depencendies: `git submodule init && git submodule update`
+- Otherwise, use the provided packages in `3rd_parties`
+- Compile the depencendies with: `cmake` / `sudo make install`
 - Compile the workspace with catkin: `catkin build uwsim`
+
+
 
 Upstream information
 --------------------

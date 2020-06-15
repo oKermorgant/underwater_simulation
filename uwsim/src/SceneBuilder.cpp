@@ -120,7 +120,9 @@ bool SceneBuilder::loadScene(ConfigFile config)
   scene = std::make_shared<osgOceanScene>(config.offsetp, config.offsetr, windDirection, windSpeed, depth, reflectionDamping, scale,
                             isChoppy, choppyFactor, crestFoamHeight, false, "terrain");
 
+#ifndef LEGACY_OSGOCEAN
   scene->getOceanScene()->initSceneShader();
+#endif
 
   if (disableShaders)
   {
