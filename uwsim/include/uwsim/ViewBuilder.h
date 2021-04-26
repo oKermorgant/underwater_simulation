@@ -36,6 +36,15 @@ public:
   ViewBuilder(ConfigFile &config, SceneBuilder *scene_builder, int *argc, char **argv);
   ViewBuilder(ConfigFile &config, SceneBuilder *scene_builder, std::shared_ptr<osg::ArgumentParser> args);
 
+  void updateSeaOffset(SceneBuilder &scene_builder)
+  {
+    static double z_prev(0);
+    auto z(viewer.get()->getCameraManipulator()->getMatrix().getTrans().z());
+    if(z*z_prev <= 0)
+      scene_builder.getScene()->getOceanScene()->setOceanSurfaceHeight(z > 0 ? 0.01 : -0.01);
+    z_prev = z;
+  }
+
   osgViewer::View* getView()
   {
     return viewer.get();

@@ -1,8 +1,0 @@
-[submodule "submodules/uwsim_osgocean-release"]
-	path = submodules/uwsim_osgocean-release
-	url = https://github.com/uji-ros-pkg/uwsim_osgocean-release
-	branch = debian/melodic/uwsim_osgocean
-[submodule "submodules/uwsim_osgworks-release"]
-	path = submodules/uwsim_osgworks-release
-	url = https://github.com/uji-ros-pkg/uwsim_osgworks-release
-	branch = debian/melodic/uwsim_osgworks

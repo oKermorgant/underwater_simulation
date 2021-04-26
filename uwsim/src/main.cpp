@@ -129,6 +129,8 @@ int main(int argc, char *argv[])
     ROSInterface::setROSTime(ros::Time::now());
     ros::spinOnce();
 
+    view.updateSeaOffset(builder);
+
     view.getViewer()->frame();
 
    // builder.updateIM();

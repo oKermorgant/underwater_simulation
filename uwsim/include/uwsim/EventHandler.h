@@ -44,6 +44,7 @@ public:
       case (osgGA::GUIEventAdapter::KEYUP):
       {
 
+
         if (ea.getKey() == '1')
         {
           ROS_INFO("Switch to Clear Blue Sky");
@@ -53,7 +54,7 @@ public:
           _scene->getOceanScene()->setUnderwaterDiffuse(
               osg::Vec4f(_config->color[0], _config->color[1], _config->color[2], 1));
           _scene->getOceanScene()->setUnderwaterAttenuation(
-              osg::Vec3f(_config->attenuation[0], _config->attenuation[1], _config->attenuation[2]));
+              osg::Vec3f(_config->attenuation[0], _config->attenuation[1], _config->attenuation[2]));          
 
           _textHUD->setSceneText("Clear Blue Sky");
           return false;
@@ -139,7 +140,6 @@ public:
             callback->reset();
           }
         }
-
       }
       default:
         return false;
