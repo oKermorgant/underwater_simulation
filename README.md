@@ -12,10 +12,9 @@ Installation instructions
 - Download this repository inside a ROS workspace
 - Install required dependencies: `sudo apt install -y libopenscenegraph-dev libfftw3-dev libxml++2.6-dev ros-$ROS1_DISTRO-control-toolbox`
 
-- If using ROS melodic or kinetic, populate the `submodules` depencendies: `git submodule init && git submodule update`
-- Otherwise, use the provided packages in `3rd_parties`
-- Compile the depencendies with: `cmake` / `sudo make install`
-- Compile the workspace with catkin: `catkin build uwsim`
+- Provided dependencies lie in `3rd_parties`
+- Compile them with: `cmake` / `sudo make install`
+- Then compile the workspace with catkin: `catkin build uwsim`
 
 
 
