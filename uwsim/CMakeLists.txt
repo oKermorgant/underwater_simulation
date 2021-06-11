@@ -15,11 +15,21 @@ find_package(catkin REQUIRED COMPONENTS
   xacro
 )
 
+# build deps
+foreach(DEP IN ITEMS uwsim_osgocean uwsim_osgworks)
+    set(DEP_ROOT ${PROJECT_SOURCE_DIR}/../3rd_parties/${DEP}-release)
+    set(DEP_BUILD ${DEP_ROOT}/build)
+    if(NOT EXISTS ${DEP_BUILD})
+        file(MAKE_DIRECTORY ${DEP_BUILD})
+        execute_process(COMMAND cmake .. WORKING_DIRECTORY ${DEP_BUILD})
+        execute_process(COMMAND make -j4 WORKING_DIRECTORY ${DEP_BUILD})
+    endif()
+    find_package(${DEP} REQUIRED HINTS "${DEP_BUILD}/lib")
+endforeach()
+
 find_package(Boost REQUIRED thread program_options system filesystem)
 find_package(OpenSceneGraph COMPONENTS osgSim osgUtil osgDB osgFX osgGA osgTerrain osgViewer osgText osgWidget osg osgParticle osgManipulator)
 find_package(PkgConfig)
-find_package(uwsim_osgocean REQUIRED)
-find_package(uwsim_osgworks REQUIRED)
 
 pkg_check_modules(LIBXML++ REQUIRED libxml++-2.6)
 
@@ -85,10 +95,10 @@ if(($ENV{ROS_DISTRO} STREQUAL "kinetic") OR ($ENV{ROS_DISTRO} STREQUAL "melodic"
 target_compile_definitions(uwsim PRIVATE "-DLEGACY_OSGOCEAN")
 endif()
 
-target_link_libraries(uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${OSGOCEAN_LIBRARIES} ${OSGWORKS_LIBRARIES} ${OSGBULLET_LIBRARIES} ${BULLET_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${LIBXML++_LIBRARIES} -lGLU)
+target_link_libraries(uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${OSGOCEAN_LIBRARIES} ${OSGWORKS_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${LIBXML++_LIBRARIES} -lGLU)
 
 add_executable(uwsim_binary  src/main.cpp)
-target_link_libraries(uwsim_binary uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${OSGOCEAN_LIBRARIES} ${OSGWORKS_LIBRARIES} ${OSGBULLET_LIBRARIES} ${BULLET_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${LIBXML++_LIBRARIES} -lGLU )
+target_link_libraries(uwsim_binary uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${OSGOCEAN_LIBRARIES} ${OSGWORKS_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${LIBXML++_LIBRARIES} -lGLU )
 
 install(
   TARGETS
@@ -101,6 +111,9 @@ install(
 
 install(DIRECTORY include/${PROJECT_NAME}
    DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
+   
+# install dep libraries
+install(FILES ${OSGOCEAN_LIBRARIES} ${OSGWORKS_LIBRARIES} DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
 
 ##compìle xacros
 file(GLOB xacro_files data/scenes/*.xml.xacro)
